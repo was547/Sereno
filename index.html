@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Sereno - Pinte & Relaxe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+</head>
+<body>
+    <div id="app">
+        <section id="gallery-screen" class="screen active">
+            <header class="gallery-header">
+                <h1 class="logo">Sereno</h1>
+                <p class="tagline">Respire. Pinte. Relaxe.</p>
+            </header>
+            
+            <nav class="gallery-tabs">
+                <button class="tab-btn active" data-tab="library">Galeria</button>
+                <button class="tab-btn" data-tab="projects">Meus Projetos</button>
+            </nav>
+
+            <div class="gallery-content">
+                <div id="library-tab" class="tab-content active">
+                    <div class="image-grid" id="image-library"></div>
+                </div>
+                
+                <div id="projects-tab" class="tab-content">
+                    <div class="image-grid" id="saved-projects"></div>
+                    <div class="empty-state" id="no-projects">
+                        <div class="empty-icon">🎨</div>
+                        <p>Você ainda não tem projetos salvos</p>
+                        <span>Escolha uma imagem da galeria para começar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="paint-screen" class="screen">
+            <header class="paint-header">
+                <button class="btn-icon" id="btn-back" aria-label="Voltar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <div class="project-title" id="project-title">Sem título</div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="btn-undo" aria-label="Desfazer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 7v6h6M3 13c0-4.97 4.03-9 9-9a9 9 0 0 1 9 9 9 9 0 0 1-9 9 8.97 8.97 0 0 1-6.36-2.64"/>
+                        </svg>
+                    </button>
+                    <button class="btn-icon" id="btn-redo" aria-label="Refazer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 7v6h-6M21 13c0-4.97-4.03-9-9-9a9 9 0 0 0-9 9 9 9 0 0 0 9 9 8.97 8.97 0 0 0 6.36-2.64"/>
+                        </svg>
+                    </button>
+                    <button class="btn-icon" id="btn-save" aria-label="Salvar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="canvas-container">
+                <canvas id="base-canvas"></canvas>
+                <canvas id="paint-canvas"></canvas>
+            </main>
+
+            <aside class="toolbar" id="toolbar">
+                <div class="toolbar-brushes">
+                    <button class="brush-btn active" data-brush="colored_pencil" title="Lápis de Cor">✏️</button>
+                    <button class="brush-btn" data-brush="watercolor" title="Aquarela">💧</button>
+                    <button class="brush-btn" data-brush="marker" title="Marcador">🖊️</button>
+                    <button class="brush-btn" data-brush="pastel" title="Pastel">🖍️</button>
+                    <button class="brush-btn" data-brush="airbrush" title="Aerógrafo">🌫️</button>
+                    <button class="brush-btn" data-brush="oil_brush" title="Óleo">🎨</button>
+                </div>
+                
+                <div class="toolbar-divider"></div>
+                
+                <div class="toolbar-tools">
+                    <button class="tool-btn" data-tool="eraser" title="Borracha">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 20H7L3 16c-.8-.8-.8-2 0-2.8L13.4 2.8c.8-.8 2-.8 2.8 0L21 7.6c.8.8.8 2 0 2.8L12 19"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn" data-tool="fill" title="Preencher">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 11l-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11z"/>
+                            <path d="M22 20.5a2.5 2.5 0 1 1-5 0c0-1.38 2.5-4 2.5-4s2.5 2.62 2.5 4z"/>
+                        </svg>
+                    </button>
+                    <button class="tool-btn mode-btn active" id="btn-confined" title="Pintura nas linhas">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="toolbar-divider"></div>
+                
+                <div class="toolbar-size">
+                    <div class="size-preview" id="size-preview"></div>
+                    <input type="range" id="brush-size" min="4" max="60" value="20" class="size-slider" orient="vertical">
+                </div>
+                
+                <div class="toolbar-divider"></div>
+                
+                <div class="toolbar-colors">
+                    <div class="color-wheel" id="color-palette"></div>
+                    <input type="color" id="custom-color" class="color-picker-btn" value="#4a90d9" title="Cor personalizada">
+                </div>
+            </aside>
+        </section>
+
+        <div class="modal" id="save-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <h2>Salvar Projeto</h2>
+                <input type="text" id="project-name-input" placeholder="Nome do projeto" maxlength="30">
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="btn-cancel-save">Cancelar</button>
+                    <button class="btn btn-primary" id="btn-confirm-save">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="brushes.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

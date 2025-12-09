@@ -1,0 +1,21 @@
+{
+  "name": "Sereno - Pinte & Relaxe",
+  "short_name": "Sereno",
+  "description": "Aplicativo de pintura relaxante para tablets. Escolha uma imagem e pinte para desestressar.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "lifestyle"],
+  "lang": "pt-BR"
+}
+
